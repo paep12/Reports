@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="paramethers" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0f97d152-11c7-4612-9f9c-cf72133a43a0">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/PruebaPara"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/PruebaReporte"/>
+	<parameter name="idInv" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select * from investigador where idinvestigador= $P{idInv}]]>
+	</queryString>
+	<field name="IDINVESTIGADOR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="IDINVESTIGADOR"/>
+	</field>
+	<field name="PRIMERNOMBRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PRIMERNOMBRE"/>
+	</field>
+	<field name="SEGUNDONOMBRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SEGUNDONOMBRE"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="67" y="0" width="100" height="30" uuid="8bbc4a3a-683a-4d8b-8624-7b87de507a1a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca21eac8-0ac4-4a10-9234-49698f9dafcb"/>
+				</reportElement>
+				<text><![CDATA[IDINVESTIGADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="0" width="100" height="30" uuid="2af7686f-7323-4671-bdba-c78a26bd399e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a1673a4e-759c-4ab7-832a-655c557ee176"/>
+				</reportElement>
+				<text><![CDATA[PRIMERNOMBRE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="270" splitType="Stretch">
+			<textField>
+				<reportElement x="67" y="37" width="100" height="30" uuid="a71a3097-7898-4067-9a4b-5cf48dc3a77f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca21eac8-0ac4-4a10-9234-49698f9dafcb"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IDINVESTIGADOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="43" width="100" height="30" uuid="3888b50b-c2a7-439b-be0e-e4784fc9afdb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a1673a4e-759c-4ab7-832a-655c557ee176"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{PRIMERNOMBRE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

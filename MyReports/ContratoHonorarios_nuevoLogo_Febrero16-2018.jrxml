@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ContratoHonorarios_nuevoLogo_Febrero16-2018" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="27eed3a4-493f-4f4a-ae88-199fa7ef38f5">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[select p.idproyecto as IDPROYECTO, 
+       p.titulo as TITULOPROYECTO,
+       p.centrocosto as CENTROCOSTO,
+       c.numerointerno as NUMEROINTERNO,
+       c.funciones as FUNCIONES,
+       c.valortotal as VALORTOTAL,
+       c.duracion as DURACION,
+       c.fechainicio as FECHAINICIO,
+       c.fechafinal as FECHAFINAL,
+       c.objeto as OBJETO,
+       c.primerinterventor as PRIMERINTERVENTOR,
+       c.resultfinal as RESULTFINAL,
+       c.fechainformefinal as FECHAINFORMEFINAL,
+       c.productoscontrato as PRODUCTOSCONTRATO,
+       DECODE(c.lov_cesionderechos,1,'SI','NO') as CESIONDERECHOS,
+       c.compromisos as COMPROMISOS,
+       upper(c.parte2) as NOMBRECONTRATISTA,
+       c.identificacionreplegal2 as IDENTIFICACIONREPLEGAL2,
+       c.formapago as FORMAPAGO,
+       sysdate as FECHAELABORACION,
+       i.primernombre ||' '||
+       i.segundonombre ||' '||
+       i.primerapellido ||' '||
+       i.segundoapellido  as investigador
+from   proyecto p, contrato c, investigador i
+where  p.idproyecto = c.idproyecto
+and    i.idinvestigador = (select ip.idinvestigador from integranteproyecto ip
+                           where ip.idproyecto = c.idproyecto
+                           and ip.idrol = 1
+                           and ip.estadowf=3)]]>
+	</queryString>
+	<field name="IDPROYECTO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="IDPROYECTO"/>
+	</field>
+	<field name="TITULOPROYECTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TITULOPROYECTO"/>
+	</field>
+	<field name="CENTROCOSTO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="CENTROCOSTO"/>
+	</field>
+	<field name="NUMEROINTERNO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NUMEROINTERNO"/>
+	</field>
+	<field name="FUNCIONES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FUNCIONES"/>
+	</field>
+	<field name="VALORTOTAL" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VALORTOTAL"/>
+	</field>
+	<field name="DURACION" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="DURACION"/>
+	</field>
+	<field name="FECHAINICIO" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FECHAINICIO"/>
+	</field>
+	<field name="FECHAFINAL" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FECHAFINAL"/>
+	</field>
+	<field name="OBJETO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OBJETO"/>
+	</field>
+	<field name="PRIMERINTERVENTOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PRIMERINTERVENTOR"/>
+	</field>
+	<field name="RESULTFINAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="RESULTFINAL"/>
+	</field>
+	<field name="FECHAINFORMEFINAL" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FECHAINFORMEFINAL"/>
+	</field>
+	<field name="PRODUCTOSCONTRATO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PRODUCTOSCONTRATO"/>
+	</field>
+	<field name="CESIONDERECHOS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CESIONDERECHOS"/>
+	</field>
+	<field name="COMPROMISOS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="COMPROMISOS"/>
+	</field>
+	<field name="NOMBRECONTRATISTA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOMBRECONTRATISTA"/>
+	</field>
+	<field name="IDENTIFICACIONREPLEGAL2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IDENTIFICACIONREPLEGAL2"/>
+	</field>
+	<field name="FORMAPAGO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FORMAPAGO"/>
+	</field>
+	<field name="FECHAELABORACION" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="FECHAELABORACION"/>
+	</field>
+	<field name="INVESTIGADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="INVESTIGADOR"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

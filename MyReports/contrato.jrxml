@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contrato" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="759602da-6fdb-4334-848b-845a242e239f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="id_convocatoria" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="0" y="0" width="100" height="30" uuid="d3fc5bfc-c9b7-4ef3-9beb-6b5e243811e0"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="137" y="0" width="280" height="30" forecolor="#A82927" uuid="d866a71a-abb2-4bbd-8c97-0690e953a5b2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE: CONTRATOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="157" splitType="Stretch">
+			<frame>
+				<reportElement x="90" y="0" width="370" height="150" uuid="024dcaf7-b9c3-4493-88aa-7f17ece53ef5"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<frame>
+					<reportElement x="1" y="1" width="189" height="149" uuid="7d85229c-0ab6-4054-bb5b-3f77959c4392"/>
+					<box>
+						<pen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<frame>
+						<reportElement mode="Opaque" x="1" y="-1" width="188" height="41" backcolor="#66A3F2" uuid="d8c267fd-8410-4452-bded-b0d6f48959e5"/>
+						<box>
+							<pen lineWidth="1.0" lineStyle="Solid"/>
+						</box>
+						<staticText>
+							<reportElement mode="Opaque" x="21" y="11" width="149" height="23" backcolor="#66A3F2" uuid="df3d1b53-ea10-4f7d-bc63-dcd3073ee051"/>
+							<textElement textAlignment="Center">
+								<font fontName="Arial" isBold="true"/>
+							</textElement>
+							<text><![CDATA[POR HONORARIOS]]></text>
+						</staticText>
+					</frame>
+					<textField hyperlinkType="ReportExecution">
+						<reportElement x="41" y="71" width="100" height="30" uuid="6c72d881-ffa0-456d-aa33-1b581e002024"/>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Contrato por Honorarios (xxxx)"]]></textFieldExpression>
+						<hyperlinkParameter name="id_convocatoria">
+							<hyperlinkParameterExpression><![CDATA[]]></hyperlinkParameterExpression>
+						</hyperlinkParameter>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="191" y="1" width="179" height="149" uuid="f1c3e3d0-2e81-484a-9577-f9555b8e5a8c"/>
+					<box>
+						<pen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<frame>
+						<reportElement mode="Opaque" x="0" y="0" width="179" height="40" backcolor="#66A3F2" uuid="49538774-34a7-4b6d-86ba-088dd4886983"/>
+						<box>
+							<pen lineWidth="1.0" lineStyle="Solid"/>
+						</box>
+						<staticText>
+							<reportElement mode="Opaque" x="21" y="11" width="139" height="24" backcolor="#66A3F2" uuid="e42f0f40-0204-412a-91b4-62a7633a9bfc"/>
+							<textElement textAlignment="Center">
+								<font fontName="Arial" isBold="true"/>
+							</textElement>
+							<text><![CDATA[CONTRATO TEMPORAL]]></text>
+						</staticText>
+					</frame>
+					<textField hyperlinkType="ReportExecution">
+						<reportElement x="41" y="72" width="113" height="30" uuid="967f49bd-b8a8-4d02-a017-669440039399"/>
+						<textElement textAlignment="Center">
+							<font fontName="Arial" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Contrato Temporal (xxxx)"]]></textFieldExpression>
+						<hyperlinkParameter name="id_convocatoria">
+							<hyperlinkParameterExpression><![CDATA[]]></hyperlinkParameterExpression>
+						</hyperlinkParameter>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TodosProyectosAprobados-NuevoFeb2018" pageWidth="1320" pageHeight="500" orientation="Landscape" columnWidth="1280" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="97b54bfc-0579-4be6-92dd-7a60bb06d974">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/Prueba1"/>
+	<queryString language="SQL">
+		<![CDATA[select c.nombre CONVOCATORIA,
+        getfacultad(getfacultadinvppal(p.idproyecto)) FACULTAD,
+        getdependenciainvppal(p.idproyecto) DEPENDENCIA,
+        -- get_lov_text('PROYECTOXCONVOCATORIA','LOV_ESTADO', pxc.lov_estado) ESTADO_PROYECTO, 
+        -- getestadoevaluacion(p.idproyecto, c.idconvocatoria) ESTADO_EVAL,
+        get_lov_text('PROYECTO','ESTADO', p.estado) ESTADO_PROYECTO, 
+        p.titulo TITULO_PROYECTO, 
+        getinvestigadorppal(p.idproyecto) INVESTIGADOR_PRINCIPAL
+        , pp.nombreinstitucionaportante INSTITUCION
+        , get_ciudad_pais(d.lugarsede) CIUDAD_PAIS
+        , decode(pp.lov_tipoaporte,'Efectivo',sum(pp.valorrubro),0) VALOR_EFECTIVO
+        , decode(pp.lov_tipoaporte,'Especie',sum(pp.valorrubro),0) VALOR_ESPECIE
+        -- , 0 VALOR_ESPECIE
+        
+from    convocatoria c, proyectoxconvocatoria pxc, proyecto p
+        , presupuestoxproyecto_vr pp
+        , dependencia d
+where   c.idconvocatoria = pxc.idconvocatoria
+and     c.idtipoconvocatoria = 1
+and     p.idproyecto = pxc.idproyecto
+and     pp.idproyecto = p.idproyecto
+and     pp.idinstitucion != getidinstitucionhost
+and     d.iddependencia = pp.iddependencia
+and     d.idinstitucion = pp.idinstitucion
+and     d.iddependencia = 0
+
+and     p.estadowf != 4
+and     c.estadowf != 4
+
+group by c.nombre,
+        getfacultad(getfacultadinvppal(p.idproyecto)),
+        getdependenciainvppal(p.idproyecto),
+       get_lov_text('PROYECTO','ESTADO', p.estado), 
+        p.titulo, 
+        getinvestigadorppal(p.idproyecto)
+        , pp.nombreinstitucionaportante
+        , get_ciudad_pais(d.lugarsede)
+        , pp.lov_tipoaporte
+
+order by 5]]>
+	</queryString>
+	<field name="CONVOCATORIA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CONVOCATORIA"/>
+	</field>
+	<field name="FACULTAD" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FACULTAD"/>
+	</field>
+	<field name="DEPENDENCIA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DEPENDENCIA"/>
+	</field>
+	<field name="ESTADO_PROYECTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESTADO_PROYECTO"/>
+	</field>
+	<field name="TITULO_PROYECTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TITULO_PROYECTO"/>
+	</field>
+	<field name="INVESTIGADOR_PRINCIPAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="INVESTIGADOR_PRINCIPAL"/>
+	</field>
+	<field name="INSTITUCION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="INSTITUCION"/>
+	</field>
+	<field name="CIUDAD_PAIS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CIUDAD_PAIS"/>
+	</field>
+	<field name="VALOR_EFECTIVO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VALOR_EFECTIVO"/>
+	</field>
+	<field name="VALOR_ESPECIE" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VALOR_ESPECIE"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="320" y="30" width="620" height="30" uuid="7dbe80d2-0d2e-4453-9f44-a6264a49ba00"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="20" isBold="true"/>
+					<paragraph lineSpacingSize="0.0"/>
+				</textElement>
+				<text><![CDATA[Instituciones aportantes a proyectos internos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="29" backcolor="#66A3F2" uuid="4613f5b7-2a70-4ea0-acfe-938138055b84">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d86b5fa6-f97a-4dfb-af7b-5e4f75bb173d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONVOCATORIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="0" width="120" height="29" backcolor="#66A3F2" uuid="7c951920-f99f-4fdf-998e-e9c646a97086">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01d94892-55ca-4291-95db-6bf163634c06"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACULTAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="220" y="0" width="110" height="29" backcolor="#66A3F2" uuid="12d048b7-9322-4583-bce0-004b2df3cc10">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a290e7de-3d11-4f9d-a195-03434ec8430b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEPENDENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="330" y="0" width="130" height="29" backcolor="#66A3F2" uuid="47cc4150-d975-4c58-be12-1b30ffe57486">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0c7cd39e-10ef-4935-a9f7-4a04c68eb37e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO PROYECTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="460" y="0" width="120" height="29" backcolor="#66A3F2" uuid="7496ad98-1740-4ff0-a0f8-1818252435bc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="413c939d-9283-4d72-b4fa-d2d044d06008"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TITULO PROYECTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="580" y="0" width="170" height="29" backcolor="#66A3F2" uuid="4a1f7b2e-f762-4182-91da-0406624dfded">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b99710c9-a159-4fc7-b3a9-8da02f2836ee"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVESTIGADOR PRINCIPAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="750" y="0" width="130" height="29" backcolor="#66A3F2" uuid="c1680082-925e-48ce-8047-04eba2b77b10">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d491ff5-be34-4268-b1cd-83800f40f938"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="880" y="0" width="130" height="29" backcolor="#66A3F2" uuid="ac6ce584-c712-49a4-824e-fb6cc0cb12ed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd95bbda-05c1-415d-8c0e-838d5cfb1da1"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CIUDAD PAIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1010" y="0" width="130" height="29" backcolor="#66A3F2" uuid="040c3980-17fd-41c6-8178-d2550d31db80">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8e4ba06-75dc-4423-9bc3-974e4f49ce4e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR EFECTIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1140" y="0" width="139" height="29" backcolor="#66A3F2" uuid="4fc8e485-5af6-4e58-8b97-83e90ed5c67f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db23e01b-4767-4ca8-9710-68ceed20ead8"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR ESPECIE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="48" splitType="Prevent">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<textField hyperlinkType="" hyperlinkTarget="">
+				<reportElement x="0" y="0" width="100" height="47" uuid="fcefc4f0-5e19-4a10-b7bf-e298c0111881">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d86b5fa6-f97a-4dfb-af7b-5e4f75bb173d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CONVOCATORIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="120" height="47" uuid="21813b39-1a6f-4c14-ac45-11b3f612c272">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01d94892-55ca-4291-95db-6bf163634c06"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{FACULTAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="0" width="110" height="47" uuid="a260986a-e0dc-487a-9904-27621ae4bd83">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a290e7de-3d11-4f9d-a195-03434ec8430b"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{DEPENDENCIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="0" width="170" height="47" uuid="a9d108fa-262e-473c-b4cf-3525a5d0fb40">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b99710c9-a159-4fc7-b3a9-8da02f2836ee"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{INVESTIGADOR_PRINCIPAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="130" height="47" uuid="70ba5880-0752-4999-9047-749a2ddac665">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0c7cd39e-10ef-4935-a9f7-4a04c68eb37e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ESTADO_PROYECTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="120" height="47" uuid="6ad8b2db-528b-444f-a3b6-3136c441e4b3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="413c939d-9283-4d72-b4fa-d2d044d06008"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{TITULO_PROYECTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="750" y="0" width="130" height="47" uuid="cd8a1a4b-27b0-4463-ab53-8c1e9f8e7bac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d491ff5-be34-4268-b1cd-83800f40f938"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{INSTITUCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="880" y="0" width="130" height="47" uuid="963bb8c0-f344-4b71-9b59-6ebeb5b1a556">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd95bbda-05c1-415d-8c0e-838d5cfb1da1"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CIUDAD_PAIS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1010" y="0" width="130" height="47" uuid="a8bcdc3c-b18a-4594-9b20-2edf19aa9bb5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8e4ba06-75dc-4423-9bc3-974e4f49ce4e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{VALOR_EFECTIVO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1140" y="0" width="138" height="47" uuid="0852cbf0-ab15-4937-b8ba-ee472e9c335b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db23e01b-4767-4ca8-9710-68ceed20ead8"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{VALOR_ESPECIE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="52" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="54" splitType="Stretch"/>
+	</summary>
+</jasperReport>

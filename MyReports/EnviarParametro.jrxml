@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EnviarParametro" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="83841270-4984-4c4d-8532-66c2240cd10f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.jasperserver.url" value="http://localhost:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/EnviarParametro"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/EnviarParametro_files/main_jrxml"/>
+	<queryString>
+		<![CDATA[select * from investigador]]>
+	</queryString>
+	<field name="IDINVESTIGADOR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="IDINVESTIGADOR"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="252" y="0" width="100" height="30" uuid="6a9c6a94-e081-47d5-baa3-f7503fd9edcc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8176766a-ec00-4325-8729-712858c2cb17"/>
+				</reportElement>
+				<text><![CDATA[IDINVESTIGADOR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField hyperlinkType="ReportExecution">
+				<reportElement x="252" y="47" width="100" height="30" uuid="f1a1ec20-3291-4352-a009-738c1ed88cae">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8176766a-ec00-4325-8729-712858c2cb17"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IDINVESTIGADOR}]]></textFieldExpression>
+				<hyperlinkParameter name="_report">
+					<hyperlinkParameterExpression><![CDATA["/reports/paramethers"]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+				<hyperlinkParameter name="id_investigador">
+					<hyperlinkParameterExpression><![CDATA[$F{IDINVESTIGADOR}]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
